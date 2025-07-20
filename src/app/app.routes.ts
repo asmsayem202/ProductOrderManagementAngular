@@ -21,6 +21,34 @@ export const routes: Routes = [
             (m) => m.DashboardComponent
           ),
       },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./features/products/product-list.component').then(
+            (m) => m.ProductListComponent
+          ),
+      },
+      {
+        path: 'products/create',
+        loadComponent: () =>
+          import('./features/products/product-create.component').then(
+            (m) => m.ProductCreateComponent
+          ),
+      },
+      {
+        path: 'products/edit/:id',
+        loadComponent: () =>
+          import('./features/products/product-edit.component').then(
+            (m) => m.ProductEditComponent
+          ),
+      },
+      {
+        path: 'products/details/:id',
+        loadComponent: () =>
+          import('./features/products/product-details.component').then(
+            (m) => m.ProductDetailsComponent
+          ),
+      },
       // other children...
     ],
   },

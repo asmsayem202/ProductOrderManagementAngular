@@ -1,1 +1,110 @@
-<p>product-create works!</p>
+<div class="max-w-3xl mx-auto p-6 shadow-lg rounded-lg bg-white">
+    <h2 class="text-2xl font-bold mb-6">Create Product</h2>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Product Info -->
+        <div class="grid grid-cols-3 gap-4 items-center">
+            <label class="font-semibold">Name</label>
+            <div class="col-span-2">
+                <input type="text" formControlName="name" class="w-full border rounded px-3 py-2" />
+                <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
+                    class="text-red-600 text-sm">
+                    Name is required
+                </div>
+            </div>
+
+            <label class="font-semibold">Brand</label>
+            <div class="col-span-2">
+                <input type="text" formControlName="brand" class="w-full border rounded px-3 py-2" />
+                <div *ngIf="productForm.get('brand')?.invalid && productForm.get('brand')?.touched"
+                    class="text-red-600 text-sm">
+                    Brand is required
+                </div>
+            </div>
+
+            <label class="font-semibold">Type</label>
+            <div class="col-span-2">
+                <select formControlName="type" class="w-full border rounded px-3 py-2">
+                    <option value="" disabled>Select type</option>
+                    <option *ngFor="let t of productTypes" [value]="t">{{ t }}</option>
+                </select>
+                <div *ngIf="productForm.get('type')?.invalid && productForm.get('type')?.touched"
+                    class="text-red-600 text-sm">
+                    Type is required
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Variants Table -->
+        <div formArrayName="variants" class="mt-6">
+            <div class="flex justify-between items-center mb-2">
+                <label class="text-lg font-semibold">Variants</label>
+                <button type="button" (click)="addVariant()"
+                    class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700">
+                    + Add Variant
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-left border rounded">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-2">Color</th>
+                            <th class="px-4 py-2">Specification</th>
+                            <th class="px-4 py-2">Size</th>
+                            <th class="px-4 py-2 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let variant of variants.controls; let i = index" [formGroupName]="i"
+                            class="border-t">
+                            <td class="px-4 py-2">
+                                <input type="text" formControlName="color" class="w-full border rounded px-2 py-1" />
+                                <div *ngIf="variant.get('color')?.invalid && variant.get('color')?.touched"
+                                    class="text-red-600 text-sm">
+                                    Required
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">
+                                <input type="text" formControlName="specification"
+                                    class="w-full border rounded px-2 py-1" />
+                                <div *ngIf="variant.get('specification')?.invalid && variant.get('specification')?.touched"
+                                    class="text-red-600 text-sm">
+                                    Required
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">
+                                <select formControlName="size" class="w-full border rounded px-2 py-1">
+                                    <option value="" disabled>Select size</option>
+                                    <option *ngFor="let s of sizes" [value]="s">{{ s }}</option>
+                                </select>
+                                <div *ngIf="variant.get('size')?.invalid && variant.get('size')?.touched"
+                                    class="text-red-600 text-sm">
+                                    Required
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 text-center">
+                                <button type="button" (click)="removeVariant(i)"
+                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-4 mt-6">
+            <button type="button" routerLink="/products"
+                class="flex items-center gap-2 px-5 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                <i class="fas fa-arrow-left"></i>
+                Back
+            </button>
+
+            <button type="submit" [disabled]="productForm.invalid"
+                class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:opacity-50">
+                Create Product
+            </button>
+        </div>
+    </form>
+</div>

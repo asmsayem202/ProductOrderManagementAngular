@@ -1,0 +1,39 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded">
+    <h2 class="text-2xl font-bold mb-4">Product Details</h2>
+
+    <div class="mb-4">
+        <strong class="text-gray-700">Name:</strong> {{ product.name }}
+    </div>
+    <div class="mb-4">
+        <strong class="text-gray-700">Brand:</strong> {{ product.brand }}
+    </div>
+    <div class="mb-4">
+        <strong class="text-gray-700">Type:</strong> {{ product.type }}
+    </div>
+
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">Variants</h3>
+        <table class="min-w-full bg-white border rounded shadow">
+            <thead>
+                <tr class="bg-gray-100 text-left">
+                    <th class="py-2 px-4 border-b">Color</th>
+                    <th class="py-2 px-4 border-b">Size</th>
+                    <th class="py-2 px-4 border-b">Specification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let variant of product.variants" class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b">{{ variant.color }}</td>
+                    <td class="py-2 px-4 border-b">{{ variant.size }}</td>
+                    <td class="py-2 px-4 border-b">{{ variant.specification }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6">
+        <button routerLink="/products" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Product List
+        </button>
+    </div>
+</div>
