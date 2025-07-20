@@ -1,16 +1,46 @@
-<div class="min-h-screen flex">
+<div class="flex h-screen bg-gray-100">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-800 text-white p-4">
-    <div class="text-xl font-bold mb-6">Admin Panel</div>
-    <nav>
-      <a routerLink="/dashboard" class="block mb-2 hover:text-gray-300">Dashboard</a>
-      <a routerLink="/products" class="block mb-2 hover:text-gray-300">Products</a>
-      <a routerLink="/orders" class="block mb-2 hover:text-gray-300">Orders</a>
+  <aside [ngClass]="toggleSidebar ? 'w-64' : 'w-0'"
+    class="bg-white border-r transition-all duration-300 overflow-hidden">
+    <div class="h-16 flex items-center justify-center border-b" *ngIf="toggleSidebar">
+      <span class="text-xl font-bold">MyApp</span>
+    </div>
+    <nav class="p-4 space-y-2" *ngIf="toggleSidebar">
+      <a routerLink="/dashboard" class="block p-2 rounded hover:bg-gray-200">Dashboard</a>
+      <a routerLink="/products" class="block p-2 rounded hover:bg-gray-200">Products</a>
+      <a routerLink="/orders" class="block p-2 rounded hover:bg-gray-200">Orders</a>
     </nav>
   </aside>
 
+
   <!-- Main Content -->
-  <main class="flex-1 p-6 bg-gray-100">
-    <router-outlet />
-  </main>
+  <div class="flex-1 flex flex-col">
+    <!-- Topbar -->
+    <header class="h-16 bg-white flex items-center justify-between px-6 border-b relative">
+      <!-- Sidebar Toggle -->
+      <button (click)="toggleSidebar = !toggleSidebar" class="text-xl">☰</button>
+
+      <!-- User Dropdown -->
+      <div class="relative" #dropdownRef>
+        <button (click)="dropdownOpen = !dropdownOpen" class="flex items-center gap-2 focus:outline-none">
+          <span class="font-medium">John Doe</span>
+          <i class="fas" [ngClass]="dropdownOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </button>
+
+        <div *ngIf="dropdownOpen" class="absolute right-0 mt-2 w-36 bg-white border rounded shadow z-50">
+          <button (click)="logout()"
+            class="w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 text-red-500">
+            <i class="fas fa-sign-out-alt text-sm"></i> Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+
+
+    <!-- Page Content -->
+    <main class="flex-1 overflow-y-auto p-6">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
