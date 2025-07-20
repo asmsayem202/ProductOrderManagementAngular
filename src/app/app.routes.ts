@@ -9,18 +9,19 @@ export const routes: Routes = [
       import('./layout/layout.component').then((m) => m.LayoutComponent),
     canActivate: [authGuard],
     children: [
-      // {
-      //   path: 'dashboard',
-      //   loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
-      // },
-      // {
-      //   path: 'products',
-      //   loadComponent: () => import('./pages/products/products.component').then(m => m.ProductsComponent)
-      // },
-      // {
-      //   path: 'orders',
-      //   loadComponent: () => import('./pages/orders/orders.component').then(m => m.OrdersComponent)
-      // }
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard', // ⬅️ default redirect to dashboard
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      // other children...
     ],
   },
   {
@@ -37,6 +38,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: '', // fallback to the layout (which will redirect to dashboard)
   },
 ];
