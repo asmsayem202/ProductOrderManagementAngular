@@ -14,6 +14,7 @@ import {
   ProductType,
   Size,
 } from '../../shared/models/product.model';
+import { Toast } from '../../core/utils/toast';
 
 @Component({
   selector: 'app-product-edit',
@@ -111,8 +112,20 @@ export class ProductEditComponent implements OnInit {
     };
 
     this.productService.updateProduct(this.productId, product).subscribe({
-      next: () => this.router.navigate(['/products']),
-      error: () => alert('Update failed'),
+      next: () => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Product update successful',
+        });
+        this.router.navigate(['/products']);
+      },
+      error: (err) => {
+        Toast.fire({
+          icon: 'error',
+          title: 'Product update failed',
+          text: err?.error?.message || 'Failed to update product',
+        });
+      },
     });
   }
 }

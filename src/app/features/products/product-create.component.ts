@@ -13,6 +13,7 @@ import {
   ProductType,
   Variant,
 } from '../../shared/models/product.model';
+import { Toast } from '../../core/utils/toast';
 
 @Component({
   selector: 'app-product-create',
@@ -79,8 +80,20 @@ export class ProductCreateComponent implements OnInit {
     };
 
     this.productService.createProduct(product).subscribe({
-      next: () => this.router.navigate(['/products']),
-      error: () => alert('Failed to create product'),
+      next: () => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Product create successful',
+        });
+        this.router.navigate(['/products']);
+      },
+      error: (err) => {
+        Toast.fire({
+          icon: 'error',
+          title: 'Product create failed',
+          text: err?.error?.message || 'Failed to create product',
+        });
+      },
     });
   }
 }
