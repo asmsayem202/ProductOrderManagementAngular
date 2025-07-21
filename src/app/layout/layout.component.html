@@ -1,8 +1,8 @@
 <div class="flex h-screen bg-gray-100">
   <!-- Sidebar -->
-  <aside [ngClass]="toggleSidebar ? 'w-64' : 'w-0'"
+  <aside [ngClass]="toggleSidebar ? 'w-60' : 'w-0'"
     class="bg-white border-r transition-all duration-300 overflow-hidden">
-    <div class="h-16 flex items-center justify-center border-b" *ngIf="toggleSidebar">
+    <div class="h-16 flex items-center justify-center" *ngIf="toggleSidebar">
       <span class="text-xl font-bold">MyApp</span>
     </div>
     <nav class="p-4 space-y-2" *ngIf="toggleSidebar">
