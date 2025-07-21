@@ -1,1 +1,115 @@
-<p>order-create works!</p>
+<div class="max-w-4xl mx-auto p-6 bg-white rounded shadow mt-6">
+    <h2 class="text-2xl font-bold mb-4">Create New Order</h2>
+
+    <!-- Step Progress Indicator -->
+    <div class="flex justify-between mb-6">
+        <div [ngClass]="{ 'font-bold text-blue-600': step === 1 }">1. Select Products</div>
+        <div [ngClass]="{ 'font-bold text-blue-600': step === 2 }">2. Select Variants & Quantity</div>
+        <div [ngClass]="{ 'font-bold text-blue-600': step === 3 }">3. Customer Info</div>
+    </div>
+
+    <!-- Step 1: Select Products -->
+    <div *ngIf="step === 1">
+        <div *ngFor="let product of allProducts"
+            class="border p-4 rounded shadow flex items-center justify-between mb-3">
+            <div>
+                <h4 class="text-lg font-semibold">{{ product.name }}</h4>
+                <p class="text-sm text-gray-500">
+                    Brand: {{ product.brand }} | Type: {{ product.type }}
+                </p>
+            </div>
+            <input type="checkbox" [checked]="selectedProducts.includes(product)" (change)="onProductToggle(product)"
+                class="w-5 h-5" />
+        </div>
+    </div>
+
+    <!-- Step 2: Select Variants & Quantity -->
+    <div *ngIf="step === 2">
+        <form [formGroup]="variantSelectionForm">
+            <div formArrayName="items" class="space-y-4">
+                <div *ngFor="let item of itemsControls; let i = index" [formGroupName]="i" class="border p-4 rounded">
+                    <h4 class="font-semibold mb-2">
+                        {{ selectedProducts?.[i]?.name || 'Unnamed Product' }}
+                    </h4>
+
+                    <div class="flex flex-col md:flex-row md:items-end gap-4">
+                        <!-- Variant Selection -->
+                        <div class="flex-1">
+                            <label class="block mb-1 text-sm">Select Variant:</label>
+                            <select formControlName="variantId" class="w-full border px-3 py-2 rounded">
+                                <option [ngValue]="null" disabled>Select a variant</option>
+                                <option *ngFor="let variant of productVariants?.[selectedProducts?.[i]?.id ?? 0] ?? []"
+                                    [value]="variant.id">
+                                    {{ variant.color }} - {{ variant.size }} ({{ variant.specification }})
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="w-full md:w-40">
+                            <label class="block mb-1 text-sm">Quantity:</label>
+                            <input type="number" formControlName="quantity" min="1"
+                                class="w-full border px-3 py-2 rounded" (input)="updateTotalQuantity()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Step 3: Customer Information -->
+    <div *ngIf="step === 3">
+        <form [formGroup]="customerForm" (ngSubmit)="submitOrder()">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-1">Customer Name</label>
+                    <input type="text" formControlName="customerName" class="w-full border px-3 py-2 rounded"
+                        placeholder="Enter full name" />
+                </div>
+                <div>
+                    <label class="block mb-1">Customer Email</label>
+                    <input type="email" formControlName="customerEmail" class="w-full border px-3 py-2 rounded"
+                        placeholder="example@email.com" />
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block mb-1">Customer Address</label>
+                    <textarea formControlName="customerAddress" class="w-full border px-3 py-2 rounded" rows="3"
+                        placeholder="Enter full address"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="mt-6 flex justify-between items-center">
+        <button *ngIf="step !== 1" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" (click)="goToPreviousStep()">
+            Back
+        </button>
+
+        <div *ngIf="step === 1"></div>
+
+        <div class="text-gray-600 text-sm" *ngIf="step === 2">
+            Total Quantity: <strong>{{ totalQuantity }}</strong>
+        </div>
+
+        <button *ngIf="step !== 3" class="px-4 py-2 rounded text-white transition-colors" [ngClass]="{
+        'bg-blue-600 hover:bg-blue-700': step === 1 ? selectedProducts.length > 0 : isVariantSelectionValid(),
+        'bg-blue-300 cursor-not-allowed': step === 1 ? selectedProducts.length === 0 : !isVariantSelectionValid()
+      }" [disabled]="step === 1 ? selectedProducts.length === 0 : !isVariantSelectionValid()" (click)="goToNextStep()">
+            Next
+        </button>
+
+        <!-- Submit Button (Step 3) -->
+        <button *ngIf="step === 3" type="submit" class="px-4 py-2 rounded text-white transition-colors" [ngClass]="{
+        'bg-green-600 hover:bg-green-700': customerForm.valid && !isSubmitting,
+        'bg-green-300 cursor-not-allowed': customerForm.invalid || isSubmitting
+      }" [disabled]="customerForm.invalid || isSubmitting" (click)="submitOrder()">
+            {{ isSubmitting ? 'Submitting...' : 'Submit Order' }}
+        </button>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="text-red-500 mt-4">
+        {{ errorMessage }}
+    </div>
+</div>

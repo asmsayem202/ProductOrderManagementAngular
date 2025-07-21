@@ -56,6 +56,13 @@ export const routes: Routes = [
             (m) => m.OrderListComponent
           ),
       },
+      {
+        path: 'orders/create',
+        loadComponent: () =>
+          import('./features/orders/order-create.component').then(
+            (m) => m.OrderCreateComponent
+          ),
+      },
     ],
   },
   {

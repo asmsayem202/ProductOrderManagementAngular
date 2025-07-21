@@ -3,6 +3,7 @@ import { OrderService } from '../../shared/services/order.service';
 import { Order } from '../../shared/models/order.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Toast } from '../../core/utils/toast';
 
 @Component({
   selector: 'app-order-list',
@@ -64,10 +65,18 @@ export class OrderListComponent implements OnInit {
         this.orders = this.orders.filter(
           (o) => o.id !== this.selectedOrder!.id
         );
+        Toast.fire({
+          icon: 'success',
+          title: 'Order delete successful',
+        });
         this.closeModal();
       },
-      error: () => {
-        this.errorMessage = 'Failed to delete order';
+      error: (err) => {
+        Toast.fire({
+          icon: 'error',
+          title: 'Order delete failed',
+          text: err?.error?.message || 'Failed to delete order',
+        });
         this.closeModal();
       },
     });
