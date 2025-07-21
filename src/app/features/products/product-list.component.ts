@@ -3,6 +3,7 @@ import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/models/product.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Toast } from '../../core/utils/toast';
 
 @Component({
   selector: 'app-product-list',
@@ -64,10 +65,18 @@ export class ProductListComponent implements OnInit {
         this.products = this.products.filter(
           (p) => p.id !== this.selectedProduct!.id
         );
+        Toast.fire({
+          icon: 'success',
+          title: 'Product delete successful',
+        });
         this.closeModal();
       },
-      error: () => {
-        this.errorMessage = 'Failed to delete product';
+      error: (err) => {
+        Toast.fire({
+          icon: 'error',
+          title: 'Product delete failed',
+          text: err?.error?.message || 'Failed to delete product',
+        });
         this.closeModal();
       },
     });

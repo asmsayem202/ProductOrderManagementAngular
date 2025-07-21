@@ -49,7 +49,13 @@ export const routes: Routes = [
             (m) => m.ProductDetailsComponent
           ),
       },
-      // other children...
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./features/orders/order-list.component').then(
+            (m) => m.OrderListComponent
+          ),
+      },
     ],
   },
   {
