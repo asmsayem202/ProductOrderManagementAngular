@@ -8,10 +8,11 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Product, Variant } from '../../shared/models/product.model';
-import { ProductService } from '../../shared/services/product.service';
-import { OrderService } from '../../shared/services/order.service';
+import { Product, Variant } from '../../../shared/models/product.model';
+import { ProductService } from '../../../shared/services/product.service';
+import { OrderService } from '../../../shared/services/order.service';
 import { CommonModule } from '@angular/common';
+import { Toast } from '../../../core/utils/toast';
 
 @Component({
   selector: 'app-order-create',
@@ -165,11 +166,19 @@ export class OrderCreateComponent implements OnInit {
     this.orderService.createOrder(orderPayload).subscribe({
       next: () => {
         this.isSubmitting = false;
+        Toast.fire({
+          icon: 'success',
+          title: 'Order create successful',
+        });
         this.router.navigate(['/orders']);
       },
-      error: () => {
+      error: (err) => {
         this.isSubmitting = false;
-        this.errorMessage = 'Failed to create order';
+        Toast.fire({
+          icon: 'error',
+          title: 'Order create failed',
+          text: err?.error?.message || 'Failed to create order',
+        });
       },
     });
   }

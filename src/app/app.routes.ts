@@ -24,42 +24,42 @@ export const routes: Routes = [
       {
         path: 'products',
         loadComponent: () =>
-          import('./features/products/product-list.component').then(
-            (m) => m.ProductListComponent
-          ),
+          import(
+            './features/products/product-list/product-list.component'
+          ).then((m) => m.ProductListComponent),
       },
       {
         path: 'products/create',
         loadComponent: () =>
-          import('./features/products/product-create.component').then(
-            (m) => m.ProductCreateComponent
-          ),
+          import(
+            './features/products/product-create/product-create.component'
+          ).then((m) => m.ProductCreateComponent),
       },
       {
         path: 'products/edit/:id',
         loadComponent: () =>
-          import('./features/products/product-edit.component').then(
-            (m) => m.ProductEditComponent
-          ),
+          import(
+            './features/products/product-edit/product-edit.component'
+          ).then((m) => m.ProductEditComponent),
       },
       {
         path: 'products/details/:id',
         loadComponent: () =>
-          import('./features/products/product-details.component').then(
-            (m) => m.ProductDetailsComponent
-          ),
+          import(
+            './features/products/product-details/product-details.component'
+          ).then((m) => m.ProductDetailsComponent),
       },
       {
         path: 'orders',
         loadComponent: () =>
-          import('./features/orders/order-list.component').then(
+          import('./features/orders/order-list/order-list.component').then(
             (m) => m.OrderListComponent
           ),
       },
       {
         path: 'orders/create',
         loadComponent: () =>
-          import('./features/orders/order-create.component').then(
+          import('./features/orders/order-create/order-create.component').then(
             (m) => m.OrderCreateComponent
           ),
       },

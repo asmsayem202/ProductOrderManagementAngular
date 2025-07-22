@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../shared/services/order.service';
-import { Order } from '../../shared/models/order.model';
+import { OrderService } from '../../../shared/services/order.service';
+import { Order } from '../../../shared/models/order.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Toast } from '../../core/utils/toast';
+import { Toast } from '../../../core/utils/toast';
 
 @Component({
   selector: 'app-order-list',

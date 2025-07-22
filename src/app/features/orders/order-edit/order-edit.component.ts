@@ -5,8 +5,5 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './order-edit.component.html',
-  styleUrl: './order-edit.component.css'
 })
-export class OrderEditComponent {
-
-}
+export class OrderEditComponent {}

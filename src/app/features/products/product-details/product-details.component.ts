@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../shared/models/product.model';
+import { Product } from '../../../shared/models/product.model';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductService } from '../../shared/services/product.service';
+import { ProductService } from '../../../shared/services/product.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent implements OnInit {
   product!: Product;

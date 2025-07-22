@@ -5,15 +5,15 @@ import {
   FormArray,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ProductService } from '../../shared/services/product.service';
+import { ProductService } from '../../../shared/services/product.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   Product,
   ProductType,
   Variant,
-} from '../../shared/models/product.model';
-import { Toast } from '../../core/utils/toast';
+} from '../../../shared/models/product.model';
+import { Toast } from '../../../core/utils/toast';
 
 @Component({
   selector: 'app-product-create',
