@@ -29,7 +29,7 @@ export interface Order {
   items: OrderItem[];
 }
 
-interface OrderDetailsDto {
+export interface OrderDetailsDto {
   customerName: string;
   customerEmail: string;
   customerAddress: string;

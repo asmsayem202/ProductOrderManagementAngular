@@ -1,0 +1,58 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded">
+    <h2 class="text-2xl font-bold mb-4">Order Details</h2>
+
+    <div *ngIf="errorMessage" class="text-red-600 mb-4">{{ errorMessage }}</div>
+
+
+    <!-- Customer Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+            <strong class="text-gray-700">Customer Name:</strong>
+            <div>{{ order.customerName }}</div>
+        </div>
+        <div>
+            <strong class="text-gray-700">Customer Email:</strong>
+            <div>{{ order.customerEmail }}</div>
+        </div>
+        <div>
+            <strong class="text-gray-700">Customer Address:</strong>
+            <div>{{ order.customerAddress }}</div>
+        </div>
+        <div>
+            <strong class="text-gray-700">Order Date:</strong>
+            <div>{{ order.orderDate | date: 'medium' }}</div>
+        </div>
+    </div>
+
+    <!-- Ordered Items Table -->
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">Ordered Items</h3>
+        <table class="min-w-full bg-white border rounded shadow">
+            <thead>
+                <tr class="bg-gray-100 text-left">
+                    <th class="py-2 px-4 border-b">Product</th>
+                    <th class="py-2 px-4 border-b">Color</th>
+                    <th class="py-2 px-4 border-b">Size</th>
+                    <th class="py-2 px-4 border-b">Specification</th>
+                    <th class="py-2 px-4 border-b">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of order.items" class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b">{{ item.productName }}</td>
+                    <td class="py-2 px-4 border-b">{{ item.variantColor }}</td>
+                    <td class="py-2 px-4 border-b">{{ item.variantSize }}</td>
+                    <td class="py-2 px-4 border-b">{{ item.variantSpecification }}</td>
+                    <td class="py-2 px-4 border-b">{{ item.quantity }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-6">
+        <button routerLink="/orders" class="px-5 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Order List
+        </button>
+    </div>
+</div>
