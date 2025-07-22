@@ -28,3 +28,17 @@ export interface Order {
   orderDate?: string;
   items: OrderItem[];
 }
+
+interface OrderDetailsDto {
+  customerName: string;
+  customerEmail: string;
+  customerAddress: string;
+  orderDate: string;
+  items: {
+    productName: string;
+    variantColor: string;
+    variantSpecification: string;
+    variantSize: string;
+    quantity: number;
+  }[];
+}

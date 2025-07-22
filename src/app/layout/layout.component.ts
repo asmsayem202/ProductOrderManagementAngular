@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
   toggleSidebar = true;
