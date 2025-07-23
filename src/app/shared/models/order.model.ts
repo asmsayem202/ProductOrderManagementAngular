@@ -13,6 +13,8 @@ export interface CreateOrder {
 
 export interface OrderItem {
   id: number;
+  productId: number;
+  variantId: number;
   productName: string;
   variantColor: string;
   variantSpecification: string;

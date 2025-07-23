@@ -64,6 +64,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'orders/edit/:id',
+        loadComponent: () =>
+          import('./features/orders/order-edit/order-edit.component').then(
+            (m) => m.OrderEditComponent
+          ),
+      },
+      {
         path: 'orders/details/:id',
         loadComponent: () =>
           import(

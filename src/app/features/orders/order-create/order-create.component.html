@@ -82,7 +82,14 @@
 
     <!-- Navigation Buttons -->
     <div class="mt-6 flex justify-between items-center">
+        <button *ngIf="step == 1" type="button" routerLink="/orders"
+            class="flex items-center gap-2 px-5 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+            <i class="fas fa-arrow-left"></i>
+            Back to list
+        </button>
+
         <button *ngIf="step !== 1" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" (click)="goToPreviousStep()">
+            <i class="fas fa-arrow-left"></i>
             Back
         </button>
 
@@ -101,8 +108,8 @@
 
         <!-- Submit Button (Step 3) -->
         <button *ngIf="step === 3" type="submit" class="px-4 py-2 rounded text-white transition-colors" [ngClass]="{
-        'bg-green-600 hover:bg-green-700': customerForm.valid && !isSubmitting,
-        'bg-green-300 cursor-not-allowed': customerForm.invalid || isSubmitting
+        'bg-blue-600 hover:bg-blue-700': customerForm.valid && !isSubmitting,
+        'bg-blue-300 cursor-not-allowed': customerForm.invalid || isSubmitting
       }" [disabled]="customerForm.invalid || isSubmitting" (click)="submitOrder()">
             {{ isSubmitting ? 'Submitting...' : 'Submit Order' }}
         </button>

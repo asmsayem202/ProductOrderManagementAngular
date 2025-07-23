@@ -1,1 +1,82 @@
-<p>order-edit works!</p>
+<div class="max-w-4xl mx-auto p-6 bg-white rounded shadow mt-6">
+    <h2 class="text-2xl font-bold mb-6">Edit Order</h2>
+
+    <form [formGroup]="orderForm" (ngSubmit)="updateOrder()">
+        <!-- Customer Info -->
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div>
+                <label>Customer Name</label>
+                <input formControlName="customerName" class="w-full border p-2 rounded" />
+            </div>
+            <div>
+                <label>Customer Email</label>
+                <input formControlName="customerEmail" type="email" class="w-full border p-2 rounded" />
+            </div>
+            <div class="md:col-span-2">
+                <label>Customer Address</label>
+                <textarea formControlName="customerAddress" class="w-full border p-2 rounded" rows="3"></textarea>
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div formArrayName="items" class="space-y-4">
+            <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i"
+                class="border p-4 rounded-md bg-gray-50">
+                <div class="grid md:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <label>Product</label>
+                        <select formControlName="productId" (change)="onProductChange(i)"
+                            class="w-full border p-2 rounded">
+                            <option [ngValue]="null" disabled>Select product</option>
+                            <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Variant</label>
+                        <select formControlName="variantId" class="w-full border p-2 rounded">
+                            <option [ngValue]="null" disabled>Select variant</option>
+                            <option *ngFor="let variant of variantMap[item.value.productId] || []" [value]="variant.id">
+                                {{ variant.color }} - {{ variant.size }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Quantity</label>
+                        <input formControlName="quantity" type="number" min="1" class="w-full border p-2 rounded" />
+                    </div>
+
+                    <div class="items-center justify-center">
+                        <button type="button" (click)="removeItem(i)"
+                            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                            <i class="fas fa-trash-alt"></i> Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons Bottom -->
+        <div class="flex justify-between items-center mt-10">
+            <button type="button" routerLink="/orders"
+                class="flex items-center gap-2 px-5 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                <i class="fas fa-arrow-left"></i>
+                Back to list
+            </button>
+
+            <div class="space-x-4">
+                <button type="button" (click)="addItem()"
+                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    <i class="fas fa-regular fa-circle-plus"></i> Add Product
+                </button>
+
+                <button type="submit" [disabled]="orderForm.invalid || isSubmitting" [ngClass]="{
+            'bg-blue-600 hover:bg-blue-700': orderForm.valid && !isSubmitting,
+            'bg-blue-300 cursor-not-allowed': orderForm.invalid || isSubmitting
+          }" class="px-5 py-2 rounded text-white">
+                    {{ isSubmitting ? 'Updating...' : 'Update Order' }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
