@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { OrderService } from '../../../shared/services/order.service';
-import { OrderDetailsDto } from '../../../shared/models/order.model';
+import { Order } from '../../../shared/models/order.model';
 import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ import { CommonModule, DatePipe } from '@angular/common';
   templateUrl: './order-details.component.html',
 })
 export class OrderDetailsComponent implements OnInit {
-  order!: OrderDetailsDto;
+  order!: Order;
   isLoading = true;
   errorMessage: string | null = null;
 
