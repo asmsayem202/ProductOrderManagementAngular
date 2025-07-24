@@ -1,4 +1,55 @@
-# ProductOrderManagementFrontend
+# 🛒 Product & Order Management System
+
+A full-stack web application to manage products and customer orders, featuring a modern responsive UI with Angular 17 and a secure backend API built using ASP.NET Core (.NET 8). Includes a dynamic dashboard with metrics and recent order tracking.
+
+---
+
+## 📸 Features
+
+### ✅ Frontend (Angular 17 + Tailwind CSS)
+- 🚀 Standalone Angular components with modern architecture
+- 📊 Dashboard with live statistics:
+  - Total products
+  - Total orders
+  - Total order items
+  - Recent orders (with customer info and created date)
+- 📦 Product management (Create, Read, Update, Delete)
+- 🧾 Order management with multi-step creation/editing
+- 🔐 JWT-based authentication
+- 🎨 Tailwind CSS for styling + Font Awesome icons
+- 📱 Responsive sidebar layout and user menu
+
+### ✅ Backend (.NET 8 Web API)
+- CRUD APIs for `Products`, `Orders`, and `Users`
+- Role-based authorization with seeded default user
+- JWT token generation and validation
+- EF Core with SQL Server database
+
+---
+
+## 🏗️ Technologies
+
+| Tech             | Description                  |
+|------------------|------------------------------|
+| Angular 17       | Frontend Framework            |
+| ASP.NET Core 8   | Backend Web API               |
+| EF Core          | ORM for SQL Server            |
+| Tailwind CSS     | Utility-first CSS framework   |
+| Font Awesome     | Icon Library                  |
+| JWT              | Authentication mechanism      |
+
+---
+
+## 🚀 Getting Started
+
+### 📦 Backend Setup
+
+1. Clone the repository
+2. Navigate to the backend project folder
+3. Update `appsettings.json` with your SQL Server connection string
+4. Run migrations and start the API
+
+---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
 
