@@ -22,8 +22,6 @@
         Orders
       </a>
     </nav>
-
-
   </aside>
 
 
@@ -37,7 +35,7 @@
       <!-- User Dropdown -->
       <div class="relative" #dropdownRef>
         <button (click)="dropdownOpen = !dropdownOpen" class="flex items-center gap-2 focus:outline-none">
-          <span class="font-medium">John Doe</span>
+          <span class="font-medium">Welcome, {{ userName }}</span>
           <i class="fas" [ngClass]="dropdownOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
         </button>
 
